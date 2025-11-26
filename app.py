@@ -6,7 +6,7 @@ from engine import analyze_face, generate_pdf
 st.title("🩺 AI-Based Face Health Scanner")
 st.write("Upload a face image to generate an approximate health report.")
 
-uploaded_file = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
+uploaded_file = st.camera_input("Take a Picture")
 
 if uploaded_file is not None:
 
