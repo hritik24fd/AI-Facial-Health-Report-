@@ -22,4 +22,7 @@ async def analyze(file: UploadFile = File(...)):
     
     
     result = analyze_face(img)
+    if result is None:
+        return {"error": "Could not analyze face in image"}
+    
     return result

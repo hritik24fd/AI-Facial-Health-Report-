@@ -26,7 +26,10 @@ def detect_emotion(image):
 # CALCULATE STRESS BASED ON EMOTION
 # ---------------------------------
 def calculate_stress(emotion):
-
+    if emotion is None:
+        return 0
+    
+    
     emotion = emotion.lower()
 
     if emotion == "happy":
