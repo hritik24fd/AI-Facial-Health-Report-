@@ -1,9 +1,12 @@
 from fastapi import FastAPI,UploadFile,File
+from fastapi import Request
 from fastapi.middleware.cors import CORSMiddleware
 from io import BytesIO
 from PIL import Image
 import numpy as np
 from engine import analyze_face
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
@@ -13,6 +16,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+templates =Jinja2Templates(directory="template")
+
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("webcam.html",{"request": request})
 
 @app.post("/analyze")
 async def analyze(file: UploadFile = File(...)):
