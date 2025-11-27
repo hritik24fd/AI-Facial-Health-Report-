@@ -19,6 +19,12 @@ def age_range_from_value(age):
 def detect_emotion(image):
     detector = FER()
     emotion, score = detector.top_emotion(image)
+
+    # Fallback if FER fails
+    if emotion is None:
+        emotion = "neutral"
+        score = 0.0
+
     return emotion, score
 
 
@@ -26,10 +32,10 @@ def detect_emotion(image):
 # CALCULATE STRESS BASED ON EMOTION
 # ---------------------------------
 def calculate_stress(emotion):
-    if emotion is None:
-        return 0
-    
-    
+
+    if emotion is None or emotion == "":
+        emotion = "neutral"
+
     emotion = emotion.lower()
 
     if emotion == "happy":
@@ -55,6 +61,10 @@ def calculate_stress(emotion):
 # ---------------------------------
 def estimate_bp_and_sugar(age, stress_level, emotion):
 
+    # Fallback to avoid NoneType error
+    if emotion is None or emotion == "":
+        emotion = "neutral"
+
     # 1. Base values by age
     if age <= 25:
         base_sys = 115; base_dia = 75; base_sugar = 90
@@ -70,7 +80,9 @@ def estimate_bp_and_sugar(age, stress_level, emotion):
         "happy": 0, "neutral": 5, "surprise": 8,
         "sad": 12, "fear": 15, "disgust": 18, "angry": 22
     }
-    emo_score = emotion_stress.get(emotion.lower(), 5)
+
+    emo = emotion.lower()  # SAFE because we fixed None
+    emo_score = emotion_stress.get(emo, 5)
 
     # 3. Stress uplift multipliers
     stress_level_lower = stress_level.lower()
@@ -121,7 +133,7 @@ def analyze_face(image):
     age_range = age_range_from_value(avg_age)
     gender = max(set(genders), key=genders.count)
 
-    # Internal emotion
+    # Emotion detection
     emotion, emo_score = detect_emotion(image)
 
     # Stress level
