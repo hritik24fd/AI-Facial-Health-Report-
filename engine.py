@@ -144,7 +144,6 @@ def analyze_face(image):
 
     return age_range, gender, stress, bp, sugar
 
-
 # ---------------------------------
 # PDF GENERATOR
 # ---------------------------------
@@ -167,3 +166,5 @@ def generate_pdf(age_range, gender, stress, bp, sugar, output_path="health_repor
 
     c.save()
     return output_path
+
+                        
