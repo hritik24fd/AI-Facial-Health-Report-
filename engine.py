@@ -147,7 +147,7 @@ def analyze_face(image):
 # ---------------------------------
 # PDF GENERATOR
 # ---------------------------------
-def generate_pdf(age_range, gender, stress, bp, sugar, output_path="health_report.pdf"):
+"""def generate_pdf(age_range, gender, stress, bp, sugar, output_path="health_report.pdf"):
 
     c = canvas.Canvas(output_path, pagesize=letter)
     width, height = letter
@@ -165,6 +165,6 @@ def generate_pdf(age_range, gender, stress, bp, sugar, output_path="health_repor
     c.drawString(50, y, f"Estimated Sugar Level: {sugar}");
 
     c.save()
-    return output_path
+    return output_path"""
 
                         

@@ -21,7 +21,7 @@ templates =Jinja2Templates(directory="template")
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse("webcam.html",{"request": request})
+    return templates.TemplateResponse("webcam_ui.html",{"request": request})
 
 @app.post("/analyze")
 async def analyze(file: UploadFile = File(...)):
