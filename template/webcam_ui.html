@@ -661,7 +661,7 @@ let stream = null;
             const formData = new FormData();
             formData.append("file", blob, "photo.jpg");
 
-            fetch("http://localhost:8000/analyze", {
+            fetch("https://YOUR-RENDER-APP.onrender.com/analyze_face", {
                 method: "POST",
                 body: formData
             })
